@@ -1,0 +1,14 @@
+$checked: #d11a2a !important;
+$notChecked: #b03b44 !important;
+
+.track {
+  background-color: $checked;
+}
+
+.colorPrimary {
+  color: $notChecked;
+}
+
+.checked {
+  color: $checked;
+}
