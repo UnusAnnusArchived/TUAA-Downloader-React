@@ -15,7 +15,6 @@ import {
   Typography,
 } from '@mui/material';
 import { QuestionMark } from '@mui/icons-material';
-import { ipcRenderer } from 'electron/renderer';
 import React, { useEffect, useState } from 'react';
 import { IVideo } from 'types';
 import OverwriteDialog from './overwrite-dialog';
@@ -47,9 +46,7 @@ const DownloadDialog: React.FC<IProps> = ({
   const [filenameFormat, setFilenameFormat] = useState('{title}');
   const [showFilenameFormatHelpDialog, setShowFilenameFormatHelpDialog] =
     useState(false);
-  const [outputPath, setOutputPath] = useState(
-    window.electron.app.getPath('downloads')
-  );
+  const [outputPath, setOutputPath] = useState<string>();
   const [videosPath, setVideosPath] = useState('Videos');
   const [thumbnailsPath, setThumbnailsPath] = useState('Thumbnails');
   const [descriptionsPath, setDescriptionsPath] = useState('Descriptions');
@@ -59,13 +56,27 @@ const DownloadDialog: React.FC<IProps> = ({
   const [openConfirmDownloadDialog, setOpenConfirmDownloadDialog] =
     useState(false);
 
+  useEffect(() => {
+    (async () => {
+      const path =
+        await window.electron.ipcRenderer.sendMessageWithResponseSync<string>(
+          'getPath',
+          'downloads'
+        );
+      setOutputPath(path);
+    })();
+  }, [open]);
+
   const handleClose = () => {
     setOpen(false);
     setOverwrite(false);
   };
 
-  const handleLocationChange = () => {
-    const paths = window.electron.selectDownloadDir();
+  const handleLocationChange = async () => {
+    const paths = await window.electron.ipcRenderer.sendMessageWithResponseSync<
+      string[]
+    >('selectDownloadDir');
+    console.log(paths);
 
     if (paths) {
       setOutputPath(paths[0]);
@@ -73,7 +84,7 @@ const DownloadDialog: React.FC<IProps> = ({
   };
 
   const openOutputPath = () => {
-    window.electron.shell.openPath(outputPath);
+    window.electron.ipcRenderer.sendMessage('openPath', [outputPath]);
   };
 
   const handleDownload = () => {
@@ -319,6 +330,7 @@ const DownloadDialog: React.FC<IProps> = ({
         open={openDownloadingDialog}
         setOpen={setOpenDownloadingDialog}
         episodesSelected={episodesSelected}
+        setEpisodesSelected={setEpisodesSelected}
         downloadVideos={downloadVideos}
         downloadThumbnails={downloadThumbnails}
         downloadDescription={downloadDescription}
@@ -326,7 +338,7 @@ const DownloadDialog: React.FC<IProps> = ({
         downloadSubtitles={downloadSubtitles}
         overwrite={overwrite}
         filenameFormat={filenameFormat}
-        outputPath={outputPath}
+        outputPath={outputPath ?? ''}
         videosPath={videosPath}
         thumbnailsPath={thumbnailsPath}
         descriptionsPath={descriptionsPath}

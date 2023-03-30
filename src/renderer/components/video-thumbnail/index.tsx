@@ -7,7 +7,6 @@ import ThumbnailImage from '../thumbnail-image';
 interface IProps {
   video: IVideo;
   selected: boolean;
-  metadata: IVideo[];
   episodesSelected: IVideo[];
   setEpisodesSelected: React.Dispatch<React.SetStateAction<IVideo[]>>;
 }
@@ -15,11 +14,10 @@ interface IProps {
 const VideoThumbnail: React.FC<IProps> = ({
   video,
   selected,
-  metadata,
   episodesSelected,
   setEpisodesSelected,
 }) => {
-  const date = new Date(video.date ?? video.releasedate);
+  const date = new Date(video.date);
 
   const select = () => {
     let exists = false;

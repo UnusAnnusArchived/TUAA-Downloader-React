@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react';
 import Layout from './components/layout';
-import { api } from './endpoints';
+import { api } from '../endpoints';
 import './styles/globals.scss';
 import type { IVideo } from 'types';
 import VideoThumbnail from './components/video-thumbnail';
+import Preferences from './components/preferences';
 
 export default function App() {
   const [metadata, setMetadata] = useState<IVideo[]>([]);
+  const [length, setLength] = useState({ s00: 0, s01: 0 });
   const [episodesSelected, setEpisodesSelected] = useState<IVideo[]>([]);
+  const [showPreferences, setShowPreferences] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${api}/v2/metadata/all`).then((res) =>
+      const res = await fetch(`${api}/v3/metadata/3/all`).then((res) =>
         res.json()
       );
 
       let episodes = [];
+
+      setLength({ s00: res[0].length, s01: res[1].length });
 
       for (let i = 0; i < res[0].length; i++) {
         episodes.push(res[0][i]);
@@ -27,6 +32,10 @@ export default function App() {
 
       setMetadata(episodes);
     })();
+
+    window.electron.ipcRenderer.on('openPreferences', () => {
+      setShowPreferences(true);
+    });
   }, []);
 
   const episodeIsSelected = (episode: IVideo) => {
@@ -60,7 +69,6 @@ export default function App() {
                   <VideoThumbnail
                     video={episode}
                     selected={episodeIsSelected(episode)}
-                    metadata={metadata}
                     episodesSelected={episodesSelected}
                     setEpisodesSelected={setEpisodesSelected}
                   />
@@ -72,6 +80,7 @@ export default function App() {
           <h1>loading</h1>
         )}
       </div>
+      <Preferences open={showPreferences} setOpen={setShowPreferences} />
     </Layout>
   );
 }

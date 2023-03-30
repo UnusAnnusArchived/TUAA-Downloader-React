@@ -1,43 +1,79 @@
+export type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
 export interface IVideo {
-  sources?: ISource[];
-  tracks?: ITrack[];
-  posters?: IPoster[];
+  __metadata_version: number;
+  sources: ISource<'tuaa' | 'embed' | 'direct'>[];
+  audio: IAudio[];
+  captions: ICaption[];
+  thumbnails: IThumbnails;
   season: number;
   episode: number;
   title: string;
   description: string;
-  date?: number;
-  releasedate: number;
-  duration?: number;
-  thumbnail?: string;
-  video?: string;
+  date: number;
+  duration: number;
 }
 
-export interface ISource {
+export type ISource<T extends 'tuaa' | 'embed' | 'direct'> = {
+  type: T;
+  id: string;
+  name: T extends 'embed' | 'direct' ? string : undefined;
+  resolutions: T extends 'tuaa' | 'direct' ? IResolution[] : undefined;
+  src: T extends 'embed' ? string : undefined;
+};
+
+export interface IResolution {
   src: string;
-  type: string;
   size: number;
 }
 
-export interface ITrack {
-  kind: string;
+export interface IAudio {
+  lang: string;
+  label: string;
+  src: string;
+  default: boolean;
+}
+
+export interface ICaption {
   label: string;
   srclang: string;
   src: string;
+  default: boolean;
 }
 
-export interface IPoster {
-  src: string;
-  type: string;
+export interface IThumbnails {
+  webp: IThumbnail;
+  jpg: IThumbnail;
+  avif: IThumbnail;
 }
+
+export interface IThumbnail {
+  src: string;
+  size: number;
+}
+
+export type Season = IVideo[];
+export type Seasons = Season[];
 
 export interface StatusObject {
-  downloaded: number;
-  filesize: number;
+  error: boolean;
+  finished: boolean;
+  status: string;
+  downloaded: StatusDownloaded;
   currentItem: {
-    filePath: string;
-    text: string;
-    downloaded: number;
-    filesize: number;
+    status: string;
+    downloaded: StatusDownloaded;
   };
 }
+
+export interface StatusDownloaded {
+  displayType: 'bytes' | 'percent' | 'plain';
+  current: number;
+  max: number;
+}
+
+export type IColorScheme = 'light' | 'dark';

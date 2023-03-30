@@ -1,17 +1,43 @@
 import { Checkbox } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { cdn } from 'renderer/endpoints';
-import { IVideo } from 'types';
+import { download } from '../../../endpoints';
+import type { IThumbnail, IVideo } from '../../../types';
 
-interface IProps {
+type OmittedProps = 'src' | 'onError';
+
+interface IProps extends Omit<JSX.IntrinsicElements['img'], OmittedProps> {
   video: IVideo;
   selected: boolean;
 }
 
-const ThumbnailImage: React.FC<IProps> = ({ video, selected }) => {
-  const [src, setSrc] = useState(
-    `${cdn}/thumbnails/${video.season.toString().padStart(2, '0')}.avif.svg`
-  );
+const ThumbnailImage: React.FC<IProps> = (props) => {
+  const { video, selected } = props;
+
+  const [src, setSrc] = useState<string>('');
+
+  useEffect(() => {
+    let thumbnails = [
+      video.thumbnails.avif,
+      video.thumbnails.webp,
+      video.thumbnails.jpg,
+    ];
+
+    thumbnails.sort((a, b) => {
+      if (a && b) {
+        if (a.size < b.size) {
+          return -1;
+        } else if (a.size > b.size) {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else {
+        return 1;
+      }
+    });
+
+    setSrc(`${download}${thumbnails[0].src}`);
+  });
 
   const handleCheckboxClick: React.MouseEventHandler<HTMLButtonElement> = (
     evt
@@ -23,10 +49,7 @@ const ThumbnailImage: React.FC<IProps> = ({ video, selected }) => {
     <div
       style={{
         backgroundImage: `url(${src})`,
-        backgroundPosition:
-          video.season === 0
-            ? `calc(7.6922% * ${video.episode - 1})`
-            : `calc(0.2724681% * ${video.episode - 1}) 0`,
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         display: 'flex',
