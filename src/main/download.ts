@@ -230,11 +230,13 @@ const createDownloader = ({
   episode,
   type,
 }: IDownloaderProps) => {
+  const negatedFileName = fileName.replace(/[^A-Za-z0-9._\-\40]/, '_');
+
   if (type === 'description' || type === 'metadata') {
     return downloadDataUrl({
       url,
       directory,
-      fileName,
+      fileName: negatedFileName,
       overwriteFiles,
       episode,
       type,
@@ -254,7 +256,7 @@ const createDownloader = ({
   currentDownloader = new FileDownloader({
     url,
     directory,
-    fileName,
+    fileName: negatedFileName,
     cloneFiles: !overwriteFiles,
     onProgress(percentage, chunk) {
       currentSize += Buffer.byteLength(chunk as Buffer);
