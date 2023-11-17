@@ -13,15 +13,15 @@ import {
   TextField,
   Tooltip,
   Typography,
-} from '@mui/material';
-import { QuestionMark } from '@mui/icons-material';
-import React, { useEffect, useState } from 'react';
-import { IVideo } from 'types';
-import OverwriteDialog from './overwrite-dialog';
-import styles from './switch-styles.module.scss';
-import FilenameFormatHelpDialog from './filename-format-help';
-import DownloadingDialog from '../downloading-dialog';
-import ConfirmDownloadDialog from './confirm-download';
+} from "@mui/material";
+import { QuestionMark } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import { IVideo } from "types";
+import OverwriteDialog from "./overwrite-dialog";
+import styles from "./switch-styles.module.scss";
+import FilenameFormatHelpDialog from "./filename-format-help";
+import DownloadingDialog from "../downloading-dialog";
+import ConfirmDownloadDialog from "./confirm-download";
 
 interface IProps {
   open: boolean;
@@ -43,15 +43,15 @@ const DownloadDialog: React.FC<IProps> = ({
   const [downloadSubtitles, setDownloadSubtitles] = useState(false);
   const [overwrite, setOverwrite] = useState(false);
   const [showOverwriteDialog, setShowOverwriteDialog] = useState(false);
-  const [filenameFormat, setFilenameFormat] = useState('{title}');
+  const [filenameFormat, setFilenameFormat] = useState("{title}");
   const [showFilenameFormatHelpDialog, setShowFilenameFormatHelpDialog] =
     useState(false);
   const [outputPath, setOutputPath] = useState<string>();
-  const [videosPath, setVideosPath] = useState('Videos');
-  const [thumbnailsPath, setThumbnailsPath] = useState('Thumbnails');
-  const [descriptionsPath, setDescriptionsPath] = useState('Descriptions');
-  const [metadataPath, setMetadataPath] = useState('Metadata');
-  const [subtitlesPath, setSubtitlesPath] = useState('Subtitles');
+  const [videosPath, setVideosPath] = useState("Videos");
+  const [thumbnailsPath, setThumbnailsPath] = useState("Thumbnails");
+  const [descriptionsPath, setDescriptionsPath] = useState("Descriptions");
+  const [metadataPath, setMetadataPath] = useState("Metadata");
+  const [subtitlesPath, setSubtitlesPath] = useState("Subtitles");
   const [openDownloadingDialog, setOpenDownloadingDialog] = useState(false);
   const [openConfirmDownloadDialog, setOpenConfirmDownloadDialog] =
     useState(false);
@@ -60,8 +60,8 @@ const DownloadDialog: React.FC<IProps> = ({
     (async () => {
       const path =
         await window.electron.ipcRenderer.sendMessageWithResponseSync<string>(
-          'getPath',
-          'downloads'
+          "getPath",
+          "downloads"
         );
       setOutputPath(path);
     })();
@@ -75,7 +75,7 @@ const DownloadDialog: React.FC<IProps> = ({
   const handleLocationChange = async () => {
     const paths = await window.electron.ipcRenderer.sendMessageWithResponseSync<
       string[]
-    >('selectDownloadDir');
+    >("selectDownloadDir");
     console.log(paths);
 
     if (paths) {
@@ -84,7 +84,7 @@ const DownloadDialog: React.FC<IProps> = ({
   };
 
   const openOutputPath = () => {
-    window.electron.ipcRenderer.sendMessage('openPath', [outputPath]);
+    window.electron.ipcRenderer.sendMessage("openPath", [outputPath]);
   };
 
   const handleDownload = () => {
@@ -93,21 +93,21 @@ const DownloadDialog: React.FC<IProps> = ({
 
   return (
     <>
-      {' '}
+      {" "}
       <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle>
           Download {episodesSelected.length} Episode
           {episodesSelected.length === 0 || episodesSelected.length > 1
-            ? 's'
-            : ''}
+            ? "s"
+            : ""}
         </DialogTitle>
         <DialogContent>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: "flex" }}>
             <FormGroup
               style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "center",
               }}
             >
               <FormControlLabel
@@ -184,15 +184,15 @@ const DownloadDialog: React.FC<IProps> = ({
                   />
                 }
                 label="Overwrite"
-                style={{ color: '#d11a2a' }}
+                style={{ color: "#d11a2a" }}
               />
             </FormGroup>
             <div style={{ flexGrow: 1 }} />
             <FormGroup
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexDirection: 'column',
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
               }}
             >
               <Button variant="contained" onClick={handleLocationChange}>
@@ -201,9 +201,9 @@ const DownloadDialog: React.FC<IProps> = ({
               <span
                 onClick={openOutputPath}
                 style={{
-                  textDecoration: 'underline',
-                  textAlign: 'center',
-                  cursor: 'pointer',
+                  textDecoration: "underline",
+                  textAlign: "center",
+                  cursor: "pointer",
                 }}
               >
                 {outputPath}
@@ -211,16 +211,16 @@ const DownloadDialog: React.FC<IProps> = ({
               <div
                 style={{
                   flexGrow: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
                 }}
               >
                 <TextField
                   size="small"
                   hidden={!downloadVideos}
                   label="Videos Folder Name"
-                  style={{ margin: '8px 0' }}
+                  style={{ margin: "8px 0" }}
                   value={videosPath}
                   onChange={(evt) => {
                     setVideosPath(evt.target.value);
@@ -230,7 +230,7 @@ const DownloadDialog: React.FC<IProps> = ({
                   size="small"
                   hidden={!downloadThumbnails}
                   label="Thumbnails Folder Name"
-                  style={{ margin: '8px 0' }}
+                  style={{ margin: "8px 0" }}
                   value={thumbnailsPath}
                   onChange={(evt) => {
                     setThumbnailsPath(evt.target.value);
@@ -240,7 +240,7 @@ const DownloadDialog: React.FC<IProps> = ({
                   size="small"
                   hidden={!downloadDescription}
                   label="Descriptions Folder Name"
-                  style={{ margin: '8px 0' }}
+                  style={{ margin: "8px 0" }}
                   value={descriptionsPath}
                   onChange={(evt) => {
                     setDescriptionsPath(evt.target.value);
@@ -250,7 +250,7 @@ const DownloadDialog: React.FC<IProps> = ({
                   size="small"
                   hidden={!downloadMetadata}
                   label="Metadata Folder Name"
-                  style={{ margin: '8px 0' }}
+                  style={{ margin: "8px 0" }}
                   value={metadataPath}
                   onChange={(evt) => {
                     setMetadataPath(evt.target.value);
@@ -260,7 +260,7 @@ const DownloadDialog: React.FC<IProps> = ({
                   size="small"
                   hidden={!downloadSubtitles}
                   label="Subtitles Folder Name"
-                  style={{ margin: '8px 0' }}
+                  style={{ margin: "8px 0" }}
                   value={subtitlesPath}
                   onChange={(evt) => {
                     setSubtitlesPath(evt.target.value);
@@ -274,7 +274,7 @@ const DownloadDialog: React.FC<IProps> = ({
                 value={filenameFormat}
                 variant="filled"
                 label="Filename Format"
-                style={{ margin: '4px 0 0 0' }}
+                style={{ margin: "4px 0 0 0" }}
                 InputProps={{
                   endAdornment: (
                     <IconButton
@@ -338,7 +338,7 @@ const DownloadDialog: React.FC<IProps> = ({
         downloadSubtitles={downloadSubtitles}
         overwrite={overwrite}
         filenameFormat={filenameFormat}
-        outputPath={outputPath ?? ''}
+        outputPath={outputPath ?? ""}
         videosPath={videosPath}
         thumbnailsPath={thumbnailsPath}
         descriptionsPath={descriptionsPath}

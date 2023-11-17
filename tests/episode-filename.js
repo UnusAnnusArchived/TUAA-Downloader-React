@@ -1,11 +1,11 @@
-const fs = require('fs/promises');
-const axios = require('axios');
+const fs = require("fs/promises");
+const axios = require("axios");
 
 const regex = /[^A-Za-z0-9._\-\40]/g;
 
 (async () => {
   const episodesRequest = await axios.get(
-    'https://unusann.us/api/v3/metadata/3/all'
+    "https://unusann.us/api/v3/metadata/3/all"
   );
 
   const seasons = episodesRequest.data;
@@ -22,5 +22,5 @@ const regex = /[^A-Za-z0-9._\-\40]/g;
 })();
 
 const negate = (value) => {
-  return value.replaceAll(regex, '_');
+  return value.replaceAll(regex, "_");
 };

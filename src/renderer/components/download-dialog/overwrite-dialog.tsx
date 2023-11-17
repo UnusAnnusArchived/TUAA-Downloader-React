@@ -5,8 +5,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@mui/material';
-import React from 'react';
+} from "@mui/material";
+import React from "react";
 
 interface IProps {
   open: boolean;
@@ -38,7 +38,7 @@ const OverwriteDialog: React.FC<IProps> = ({ open, setOpen, setOverwrite }) => {
         <Button
           onClick={handleEnable}
           variant="contained"
-          style={{ backgroundColor: '#d11a2a', color: '#ffffff' }}
+          style={{ backgroundColor: "#d11a2a", color: "#ffffff" }}
         >
           Enable
         </Button>

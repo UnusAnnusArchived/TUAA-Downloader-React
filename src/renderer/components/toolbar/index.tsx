@@ -1,7 +1,7 @@
-import { AppBar, Button, Checkbox, Toolbar, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import { IVideo } from 'types';
-import DownloadDialog from '../download-dialog';
+import { AppBar, Button, Checkbox, Toolbar, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { IVideo } from "types";
+import DownloadDialog from "../download-dialog";
 
 interface IProps {
   metadata: IVideo[];
@@ -44,7 +44,7 @@ const AppToolbar: React.FC<IProps> = ({
           />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {selected} Video
-            {selected === 0 || selected > 1 ? 's' : ''} Selected
+            {selected === 0 || selected > 1 ? "s" : ""} Selected
           </Typography>
           <Button
             variant="contained"

@@ -6,7 +6,7 @@ export type DeepPartial<T> = T extends object
 
 export interface IVideo {
   __metadata_version: number;
-  sources: ISource<'tuaa' | 'embed' | 'direct'>[];
+  sources: ISource<"tuaa" | "embed" | "direct">[];
   audio: IAudio[];
   captions: ICaption[];
   thumbnails: IThumbnails;
@@ -18,12 +18,12 @@ export interface IVideo {
   duration: number;
 }
 
-export type ISource<T extends 'tuaa' | 'embed' | 'direct'> = {
+export type ISource<T extends "tuaa" | "embed" | "direct"> = {
   type: T;
   id: string;
-  name: T extends 'embed' | 'direct' ? string : undefined;
-  resolutions: T extends 'tuaa' | 'direct' ? IResolution[] : undefined;
-  src: T extends 'embed' ? string : undefined;
+  name: T extends "embed" | "direct" ? string : undefined;
+  resolutions: T extends "tuaa" | "direct" ? IResolution[] : undefined;
+  src: T extends "embed" ? string : undefined;
 };
 
 export interface IResolution {
@@ -71,9 +71,9 @@ export interface StatusObject {
 }
 
 export interface StatusDownloaded {
-  displayType: 'bytes' | 'percent' | 'plain';
+  displayType: "bytes" | "percent" | "plain";
   current: number;
   max: number;
 }
 
-export type IColorScheme = 'light' | 'dark';
+export type IColorScheme = "light" | "dark";

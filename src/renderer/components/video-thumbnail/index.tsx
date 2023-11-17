@@ -1,8 +1,8 @@
-import { Paper, Typography } from '@mui/material';
-import moment from 'moment';
-import React from 'react';
-import { IVideo } from 'types';
-import ThumbnailImage from '../thumbnail-image';
+import { Paper, Typography } from "@mui/material";
+import moment from "moment";
+import React from "react";
+import { IVideo } from "types";
+import ThumbnailImage from "../thumbnail-image";
 
 interface IProps {
   video: IVideo;
@@ -64,12 +64,12 @@ const VideoThumbnail: React.FC<IProps> = ({
         </div>
         <div className="text-center mt-2">
           <Typography variant="body2">
-            Season {video.season.toString()} Episode {video.episode.toString()}{' '}
-            - {moment.utc(date).format('DD. MMM YYYY')}
+            Season {video.season.toString()} Episode {video.episode.toString()}{" "}
+            - {moment.utc(date).format("DD. MMM YYYY")}
           </Typography>
           <Typography variant="body2">
-            s{video.season.toString().padStart(2, '0')}.e
-            {video.episode.toString().padStart(3, '0')}
+            s{video.season.toString().padStart(2, "0")}.e
+            {video.episode.toString().padStart(3, "0")}
           </Typography>
         </div>
       </Paper>

@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material';
-import theme from './theme';
-import AppToolbar from '../toolbar';
-import { IVideo } from 'types';
+import React, { PropsWithChildren } from "react";
+import { createStyles, makeStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
+import theme from "./theme";
+import AppToolbar from "../toolbar";
+import { IVideo } from "types";
 
 const useStyles = makeStyles((newTheme: Theme) =>
   createStyles({
@@ -35,7 +35,7 @@ const Layout: React.FC<IProps> = ({
           {`body { all: unset; } #main { display: none!important; }`}
         </style>
         <h1>
-          Please enable JavaScript, or go to our{' '}
+          Please enable JavaScript, or go to our{" "}
           <a href="/legacy/01">Legacy browser page</a>.
         </h1>
       </noscript>
@@ -49,7 +49,7 @@ const Layout: React.FC<IProps> = ({
         <main
           id="main"
           className="container pb-5 text-white"
-          style={{ height: 'calc(100vh - 64px)' }}
+          style={{ height: "calc(100vh - 64px)" }}
         >
           {children}
         </main>

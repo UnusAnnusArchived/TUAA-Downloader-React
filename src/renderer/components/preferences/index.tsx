@@ -7,9 +7,9 @@ import {
   FormGroup,
   MenuItem,
   Select,
-} from '@mui/material';
-import React from 'react';
-import ColorScheme from './colorScheme';
+} from "@mui/material";
+import React from "react";
+import ColorScheme from "./colorScheme";
 
 interface IProps {
   open: boolean;

@@ -1,5 +1,5 @@
-import fs from 'fs-extra';
-import { getUAID, IDownloaderProps, setDownloadStatus } from './download';
+import fs from "fs-extra";
+import { getUAID, IDownloaderProps, setDownloadStatus } from "./download";
 
 const downloadDataUrl = ({
   url,
@@ -14,13 +14,13 @@ const downloadDataUrl = ({
     currentItem: {
       status: `Downloading ${type}...`,
       downloaded: {
-        displayType: 'percent',
+        displayType: "percent",
         max: 100,
       },
     },
   });
   fs.mkdirSync(directory, { recursive: true });
-  const buffer = Buffer.from(url, 'base64');
+  const buffer = Buffer.from(url, "base64");
   fs.writeFileSync(`${directory}/${fileName}`, buffer);
   setDownloadStatus({
     currentItem: {

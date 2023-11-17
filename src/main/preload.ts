@@ -1,14 +1,14 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import { contextBridge, ipcRenderer, IpcRendererEvent } from "electron";
 
 export type Channels =
-  | 'getPath'
-  | 'selectDownloadDir'
-  | 'openPath'
-  | 'startDownload'
-  | 'openPreferences'
-  | 'setDownloadStatus'
-  | 'getDownloadStatus'
-  | 'getIsDownloading';
+  | "getPath"
+  | "selectDownloadDir"
+  | "openPath"
+  | "startDownload"
+  | "openPreferences"
+  | "setDownloadStatus"
+  | "getDownloadStatus"
+  | "getIsDownloading";
 
 const electronHandler = {
   ipcRenderer: {
@@ -41,6 +41,6 @@ const electronHandler = {
   },
 };
 
-contextBridge.exposeInMainWorld('electron', electronHandler);
+contextBridge.exposeInMainWorld("electron", electronHandler);
 
 export type ElectronHandler = typeof electronHandler;

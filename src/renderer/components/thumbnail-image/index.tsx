@@ -1,11 +1,11 @@
-import { Checkbox } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { download } from '../../../endpoints';
-import type { IThumbnail, IVideo } from '../../../types';
+import { Checkbox } from "@mui/material";
+import { useEffect, useState } from "react";
+import { download } from "../../../endpoints";
+import type { IThumbnail, IVideo } from "../../../types";
 
-type OmittedProps = 'src' | 'onError';
+type OmittedProps = "src" | "onError";
 
-interface IProps extends Omit<JSX.IntrinsicElements['img'], OmittedProps> {
+interface IProps extends Omit<JSX.IntrinsicElements["img"], OmittedProps> {
   video: IVideo;
   selected: boolean;
 }
@@ -13,7 +13,7 @@ interface IProps extends Omit<JSX.IntrinsicElements['img'], OmittedProps> {
 const ThumbnailImage: React.FC<IProps> = (props) => {
   const { video, selected } = props;
 
-  const [src, setSrc] = useState<string>('');
+  const [src, setSrc] = useState<string>("");
 
   useEffect(() => {
     let thumbnails = [
@@ -49,12 +49,12 @@ const ThumbnailImage: React.FC<IProps> = (props) => {
     <div
       style={{
         backgroundImage: `url(${src})`,
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start',
+        backgroundColor: "rgba(255, 255, 255, 0.05)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "flex-start",
       }}
     >
       <Checkbox checked={selected} onClick={handleCheckboxClick} />

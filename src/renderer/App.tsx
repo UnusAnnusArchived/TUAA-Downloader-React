@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import Layout from './components/layout';
-import { api } from '../endpoints';
-import './styles/globals.scss';
-import type { IVideo } from 'types';
-import VideoThumbnail from './components/video-thumbnail';
-import Preferences from './components/preferences';
+import { useEffect, useState } from "react";
+import Layout from "./components/layout";
+import { api } from "../endpoints";
+import "./styles/globals.scss";
+import type { IVideo } from "types";
+import VideoThumbnail from "./components/video-thumbnail";
+import Preferences from "./components/preferences";
 
 export default function App() {
   const [metadata, setMetadata] = useState<IVideo[]>([]);
@@ -33,7 +33,7 @@ export default function App() {
       setMetadata(episodes);
     })();
 
-    window.electron.ipcRenderer.on('openPreferences', () => {
+    window.electron.ipcRenderer.on("openPreferences", () => {
       setShowPreferences(true);
     });
   }, []);

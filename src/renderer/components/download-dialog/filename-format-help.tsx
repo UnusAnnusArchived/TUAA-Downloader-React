@@ -4,8 +4,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from '@mui/material';
-import React from 'react';
+} from "@mui/material";
+import React from "react";
 
 interface IProps {
   open: boolean;
