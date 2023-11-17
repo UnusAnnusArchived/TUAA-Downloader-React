@@ -230,7 +230,7 @@ const createDownloader = ({
   episode,
   type,
 }: IDownloaderProps) => {
-  const negatedFileName = fileName.replace(/[^A-Za-z0-9._\-\40]/, '_');
+  const negatedFileName = fileName.replaceAll(/[^A-Za-z0-9._\-\40]/g, '_');
 
   if (type === 'description' || type === 'metadata') {
     return downloadDataUrl({
